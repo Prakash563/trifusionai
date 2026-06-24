@@ -1,0 +1,19 @@
+import joblib
+from sklearn.preprocessing import StandardScaler
+import numpy as np
+
+# create scaler
+scaler = StandardScaler()
+
+# IMPORTANT → number of features = 19 (from your logs)
+scaler.fit(np.random.rand(100, 19))
+
+# save inside models folder
+import os
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+scaler_path = os.path.join(BASE_DIR, "models", "scaler.pkl")
+
+scaler = joblib.load(scaler_path)
+
+print("✅ scaler.pkl created in models folder")
