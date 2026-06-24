@@ -1,0 +1,1108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>AI Powered Systems — Security · Health · Business</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Exo+2:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet"/>
+
+<style>
+/* ═══════════════════════════════════════════════════
+   THEME SYSTEM
+═══════════════════════════════════════════════════ */
+:root,
+[data-theme="cyber"] {
+  --bg:    #030910; --s1: #060e1c; --s2: #08111f; --s3: #0a1628;
+  --bd:    #0c1e35; --bd2: #102440;
+  --sec:   #ff3535; --sec2: #ff353518; --sec3: #ff353540;
+  --hlth:  #00e09e; --hlth2:#00e09e18; --hlth3:#00e09e40;
+  --biz:   #38a8ff; --biz2: #38a8ff18; --biz3: #38a8ff40;
+  --gold:  #f6c300; --gold2:#f6c30018;
+  --text:  #a8c8e0; --dim:  #2d4a65; --muted:#172a3f;
+  --od: 'Orbitron',sans-serif; --eb: 'Exo 2',sans-serif; --mo: 'Share Tech Mono',monospace;
+  --grid-color: #0c1e35; --scanline: #38a8ff1a;
+  --hero-glow: #38a8ff0b; --card-shadow: #38a8ff06;
+}
+[data-theme="ghost"] {
+  --bg:#0d0d0d; --s1:#141414; --s2:#1a1a1a; --s3:#1f1f1f;
+  --bd:#282828; --bd2:#333;
+  --sec:#e040fb; --sec2:#e040fb18; --sec3:#e040fb40;
+  --hlth:#69ff47; --hlth2:#69ff4718; --hlth3:#69ff4740;
+  --biz:#00e5ff; --biz2:#00e5ff18; --biz3:#00e5ff40;
+  --gold:#ff6e40; --gold2:#ff6e4018;
+  --text:#c8c8c8; --dim:#444; --muted:#222;
+  --grid-color:#1f1f1f; --scanline:#e040fb1a;
+  --hero-glow:#e040fb0b; --card-shadow:#e040fb06;
+}
+[data-theme="solar"] {
+  --bg:#fdf6e3; --s1:#fffbf0; --s2:#fff8e8; --s3:#fef5dc;
+  --bd:#e8d5a0; --bd2:#d4b860;
+  --sec:#c0392b; --sec2:#c0392b15; --sec3:#c0392b35;
+  --hlth:#27ae60; --hlth2:#27ae6015; --hlth3:#27ae6035;
+  --biz:#2980b9; --biz2:#2980b915; --biz3:#2980b935;
+  --gold:#e67e22; --gold2:#e67e2215;
+  --text:#4a3728; --dim:#9a8060; --muted:#e8d5a0;
+  --grid-color:#e8d5a0; --scanline:#e67e221a;
+  --hero-glow:#e67e220b; --card-shadow:#e67e2206;
+}
+[data-theme="arctic"] {
+  --bg:#f0f4f8; --s1:#ffffff; --s2:#f8fafc; --s3:#eef2f7;
+  --bd:#cbd5e1; --bd2:#94a3b8;
+  --sec:#ef4444; --sec2:#ef444415; --sec3:#ef444435;
+  --hlth:#10b981; --hlth2:#10b98115; --hlth3:#10b98135;
+  --biz:#3b82f6; --biz2:#3b82f615; --biz3:#3b82f635;
+  --gold:#f59e0b; --gold2:#f59e0b15;
+  --text:#1e293b; --dim:#64748b; --muted:#cbd5e1;
+  --grid-color:#e2e8f0; --scanline:#3b82f61a;
+  --hero-glow:#3b82f60b; --card-shadow:#3b82f606;
+}
+[data-theme="matrix"] {
+  --bg:#000a00; --s1:#001200; --s2:#001800; --s3:#002000;
+  --bd:#003300; --bd2:#005500;
+  --sec:#ff4444; --sec2:#ff444418; --sec3:#ff444440;
+  --hlth:#00ff41; --hlth2:#00ff4118; --hlth3:#00ff4140;
+  --biz:#39ff14; --biz2:#39ff1418; --biz3:#39ff1440;
+  --gold:#ccff00; --gold2:#ccff0018;
+  --text:#00cc33; --dim:#004d1a; --muted:#001a08;
+  --grid-color:#003300; --scanline:#00ff411a;
+  --hero-glow:#00ff410b; --card-shadow:#00ff4106;
+}
+
+/* ═══════════════════════════════════════════════════
+   RESET
+═══════════════════════════════════════════════════ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--eb);min-height:100vh;overflow-x:hidden;transition:background .4s,color .4s}
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--bd2);border-radius:2px}
+select{-webkit-appearance:none;appearance:none}
+input[type=range]{cursor:pointer;accent-color:var(--biz)}
+
+/* ═══════════════════════════════════════════════════
+   ANIMATED BACKGROUND
+═══════════════════════════════════════════════════ */
+body::before{
+  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:linear-gradient(var(--grid-color) 1px,transparent 1px),linear-gradient(90deg,var(--grid-color) 1px,transparent 1px);
+  background-size:46px 46px;animation:gridMove 20s linear infinite;opacity:.5;transition:all .4s;
+}
+body::after{
+  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(ellipse 60% 45% at 10% 5%,var(--hero-glow) 0%,transparent 65%),
+    radial-gradient(ellipse 50% 40% at 90% 90%,var(--sec2) 0%,transparent 65%),
+    radial-gradient(ellipse 40% 30% at 50% 50%,var(--hlth2) 0%,transparent 65%);
+  transition:all .4s;
+}
+@keyframes gridMove{from{background-position:0 0}to{background-position:46px 46px}}
+.scanline{position:fixed;left:0;right:0;height:2px;z-index:0;pointer-events:none;background:linear-gradient(transparent,var(--scanline),transparent);animation:scanDown 6s linear infinite;}
+@keyframes scanDown{0%{top:-4px}100%{top:100%}}
+
+/* ═══════════════════════════════════════════════════
+   LOGIN SCREEN
+═══════════════════════════════════════════════════ */
+#login-screen{
+  position:fixed;inset:0;z-index:1000;
+  background:var(--bg);display:flex;align-items:center;justify-content:center;
+  transition:opacity .6s,visibility .6s;
+}
+#login-screen.hidden{opacity:0;visibility:hidden;pointer-events:none}
+.login-box{
+  background:var(--s1);border:1px solid var(--bd2);border-radius:14px;
+  padding:48px 44px;width:100%;max-width:420px;position:relative;z-index:1;
+  box-shadow:0 0 60px var(--card-shadow);
+  animation:fadeUp .5s ease;
+}
+.login-logo{text-align:center;margin-bottom:30px}
+.login-logo .l1{font-family:var(--od);font-weight:900;font-size:13px;color:#fff;letter-spacing:3px;opacity:.7}
+.login-logo .l2{font-family:var(--od);font-weight:900;font-size:22px;letter-spacing:3px;margin:6px 0;
+  background:linear-gradient(100deg,var(--sec),var(--gold),var(--hlth),var(--biz));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.login-logo .l3{font-family:var(--mo);font-size:9px;color:var(--dim);letter-spacing:2px}
+.login-corner{position:absolute;width:24px;height:24px}
+.login-corner.tl{top:0;left:0;border-top:2px solid var(--gold);border-left:2px solid var(--gold)}
+.login-corner.tr{top:0;right:0;border-top:2px solid var(--gold);border-right:2px solid var(--gold)}
+.login-corner.bl{bottom:0;left:0;border-bottom:2px solid var(--gold);border-left:2px solid var(--gold)}
+.login-corner.br{bottom:0;right:0;border-bottom:2px solid var(--gold);border-right:2px solid var(--gold)}
+.lf-group{margin-bottom:18px}
+.lf-label{font-family:var(--mo);font-size:10px;color:var(--dim);letter-spacing:1.5px;display:block;margin-bottom:7px}
+.lf-input{
+  width:100%;padding:11px 14px;background:var(--s2);
+  border:1px solid var(--bd2);border-radius:6px;color:var(--text);
+  font-family:var(--mo);font-size:12px;outline:none;transition:border .2s;
+}
+.lf-input:focus{border-color:var(--biz);box-shadow:0 0 0 3px var(--biz2)}
+.lf-err{font-family:var(--mo);font-size:10px;color:var(--sec);margin-top:8px;display:none;letter-spacing:.5px}
+.login-btn{
+  width:100%;padding:14px;margin-top:8px;
+  background:transparent;border:1.5px solid var(--biz);border-radius:6px;
+  color:var(--biz);font-family:var(--od);font-size:13px;font-weight:700;letter-spacing:4px;
+  cursor:pointer;transition:all .22s;position:relative;overflow:hidden;
+}
+.login-btn::before{content:'';position:absolute;inset:0;background:var(--biz);transform:scaleX(0);transform-origin:left;transition:transform .22s}
+.login-btn:hover::before{transform:scaleX(1)}
+.login-btn:hover{color:#030910}
+.login-btn span{position:relative;z-index:1}
+.login-hint{font-family:var(--mo);font-size:9px;color:var(--dim);text-align:center;margin-top:16px;letter-spacing:1px;line-height:1.8}
+
+/* ═══════════════════════════════════════════════════
+   THEME SWITCHER
+═══════════════════════════════════════════════════ */
+.theme-bar{
+  position:fixed;top:14px;right:18px;z-index:100;
+  display:flex;align-items:center;gap:8px;
+  background:var(--s1);border:1px solid var(--bd2);border-radius:30px;
+  padding:6px 12px;
+}
+.theme-bar-label{font-family:var(--mo);font-size:8px;color:var(--dim);letter-spacing:1.5px;margin-right:4px}
+.th-dot{
+  width:18px;height:18px;border-radius:50%;cursor:pointer;border:2px solid transparent;
+  transition:all .22s;flex-shrink:0;
+}
+.th-dot:hover,.th-dot.active{border-color:var(--text);transform:scale(1.2)}
+.th-logout{
+  font-family:var(--mo);font-size:9px;color:var(--dim);letter-spacing:1px;
+  background:none;border:1px solid var(--bd2);border-radius:3px;padding:3px 8px;
+  cursor:pointer;margin-left:4px;transition:all .2s;
+}
+.th-logout:hover{color:var(--sec);border-color:var(--sec)}
+
+/* ═══════════════════════════════════════════════════
+   LAYOUT
+═══════════════════════════════════════════════════ */
+#app{display:none}
+#app.visible{display:block;animation:fadeUp .5s ease}
+.wrap{position:relative;z-index:1;max-width:1160px;margin:0 auto;padding:60px 20px 80px}
+
+/* ═══════════════════════════════════════════════════
+   HERO
+═══════════════════════════════════════════════════ */
+.hero{
+  margin:28px 0 26px;padding:44px 36px 38px;
+  background:var(--s1);border:1px solid var(--bd2);border-radius:12px;
+  text-align:center;position:relative;overflow:hidden;box-shadow:0 0 80px var(--card-shadow);
+  transition:background .4s,border .4s;
+}
+.hero::before{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 80% 50% at 50% -15%,var(--hero-glow) 0%,transparent 60%)}
+.cp{position:absolute;width:26px;height:26px}
+.cp.tl{top:0;left:0;border-top:2px solid var(--gold);border-left:2px solid var(--gold)}
+.cp.tr{top:0;right:0;border-top:2px solid var(--gold);border-right:2px solid var(--gold)}
+.cp.bl{bottom:0;left:0;border-bottom:2px solid var(--gold);border-left:2px solid var(--gold)}
+.cp.br{bottom:0;right:0;border-bottom:2px solid var(--gold);border-right:2px solid var(--gold)}
+.hero-badges{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-bottom:20px}
+.badge{display:inline-flex;align-items:center;gap:7px;padding:4px 14px;border-radius:2px;font-family:var(--mo);font-size:9px;letter-spacing:3px;border:1px solid var(--bd2);color:var(--dim)}
+.badge .dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.badge.live{border-color:var(--gold2);color:var(--gold)}
+.badge.live .dot{background:var(--gold);box-shadow:0 0 8px var(--gold);animation:blink 1.8s step-end infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+#api-badge{transition:all .3s}
+.api-on{border-color:var(--hlth3)!important;color:var(--hlth)!important}
+.api-on .dot{background:var(--hlth)!important;box-shadow:0 0 8px var(--hlth)!important}
+.api-off{border-color:var(--sec3)!important;color:var(--sec)!important}
+.api-off .dot{background:var(--sec)!important}
+.api-wait .dot{background:var(--gold)!important;animation:blink 1s step-end infinite!important}
+.hero-line1{font-family:var(--od);font-weight:900;letter-spacing:3px;line-height:1.2;font-size:clamp(11px,2vw,20px);color:var(--text);margin-bottom:6px;opacity:.8}
+.hero-line2{font-family:var(--od);font-weight:900;letter-spacing:3px;line-height:1.2;font-size:clamp(13px,2.6vw,28px);margin-bottom:16px;background:linear-gradient(100deg,var(--sec),var(--gold),var(--hlth),var(--biz));-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:flicker 12s infinite}
+@keyframes flicker{0%,100%{opacity:1}93%{opacity:.55}94%{opacity:1}97%{opacity:.7}98%{opacity:1}}
+.hero-sub{font-family:var(--mo);font-size:10px;color:var(--dim);letter-spacing:2px;margin-bottom:28px}
+.stats-row{display:flex;justify-content:center;gap:clamp(20px,5vw,60px);flex-wrap:wrap}
+.stat-val{font-family:var(--od);font-weight:800;font-size:clamp(18px,2.5vw,26px);text-shadow:0 0 14px currentColor;line-height:1}
+.stat-lbl{font-family:var(--mo);font-size:9px;color:var(--dim);letter-spacing:1.5px;margin-top:3px}
+
+/* ═══════════════════════════════════════════════════
+   TABS
+═══════════════════════════════════════════════════ */
+.tabs{display:flex;gap:10px;margin-bottom:22px}
+.tab{flex:1;padding:16px 8px;background:var(--s1);border:1px solid var(--bd2);border-radius:8px;cursor:pointer;text-align:center;transition:all .25s}
+.tab:hover{filter:brightness(1.3)}
+.tab .ti{font-size:24px;margin-bottom:5px}
+.tab .tl{font-family:var(--od);font-size:clamp(6px,1.2vw,10px);font-weight:700;letter-spacing:2.5px;color:var(--dim);transition:color .25s}
+.tab.ts{background:var(--sec2);border-color:var(--sec);box-shadow:0 0 22px var(--sec2)}
+.tab.ts .tl{color:var(--sec)}
+.tab.th{background:var(--hlth2);border-color:var(--hlth);box-shadow:0 0 22px var(--hlth2)}
+.tab.th .tl{color:var(--hlth)}
+.tab.tb{background:var(--biz2);border-color:var(--biz);box-shadow:0 0 22px var(--biz2)}
+.tab.tb .tl{color:var(--biz)}
+
+/* ═══════════════════════════════════════════════════
+   PANELS
+═══════════════════════════════════════════════════ */
+.pnl{display:none}
+.pnl.on{display:block;animation:fadeUp .38s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.g2{display:grid;grid-template-columns:1fr 370px;gap:18px;align-items:start}
+@media(max-width:880px){.g2{grid-template-columns:1fr}}
+
+/* ═══════════════════════════════════════════════════
+   CARD
+═══════════════════════════════════════════════════ */
+.card{background:var(--s1);border:1px solid var(--bd2);border-radius:8px;overflow:hidden;margin-bottom:18px;transition:background .4s,border .4s}
+.card-h{padding:12px 20px;background:var(--s2);border-bottom:1px solid var(--bd2);display:flex;align-items:center;justify-content:space-between}
+.card-title{font-family:var(--od);font-size:13px;font-weight:700;letter-spacing:2px;color:var(--text)}
+.card-title em{font-style:normal;margin-right:7px}
+.card-tag{font-family:var(--mo);font-size:9px;color:var(--dim);border:1px solid var(--bd2);padding:2px 8px;border-radius:2px;letter-spacing:1px}
+.card-b{padding:22px}
+
+/* ═══════════════════════════════════════════════════
+   UPLOAD ZONE
+═══════════════════════════════════════════════════ */
+.upz{
+  border:1.5px dashed var(--bd2);border-radius:8px;padding:40px 20px;
+  text-align:center;cursor:pointer;transition:all .28s;background:var(--s2);
+  position:relative;overflow:hidden;
+}
+.upz:hover,.upz.drag{border-color:var(--ac,var(--biz));background:rgba(56,168,255,.04)}
+.upz.full{padding:0;border-style:solid;border-color:var(--ac,var(--biz))}
+.upz input{display:none}
+.upz-icon{font-size:40px;margin-bottom:11px;opacity:.55}
+.upz-title{font-family:var(--od);font-size:16px;letter-spacing:2px;color:var(--text);margin-bottom:6px}
+.upz-sub{font-family:var(--mo);font-size:10px;color:var(--dim);letter-spacing:1px}
+.upz img{display:none;width:100%;max-height:270px;object-fit:cover;border-radius:6px}
+.upz-cap{display:none;position:absolute;bottom:0;left:0;right:0;padding:7px 14px;background:linear-gradient(transparent,var(--bg)ee);font-family:var(--mo);font-size:10px;color:var(--ac,var(--biz));letter-spacing:1px}
+
+/* ═══════════════════════════════════════════════════
+   BUTTON
+═══════════════════════════════════════════════════ */
+.btn{
+  width:100%;margin-top:14px;padding:14px;background:transparent;border:1.5px solid var(--ac,var(--biz));
+  border-radius:5px;color:var(--ac,var(--biz));font-family:var(--od);font-size:15px;font-weight:700;letter-spacing:4px;
+  cursor:pointer;transition:all .22s;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;gap:12px;
+}
+.btn::before{content:'';position:absolute;inset:0;background:var(--ac,var(--biz));transform:scaleX(0);transform-origin:left;transition:transform .22s;z-index:0}
+.btn:hover::before{transform:scaleX(1)}
+.btn:hover{color:var(--bg)}
+.btn>*{position:relative;z-index:1}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.btn:disabled::before{transform:scaleX(0)!important}
+.btn:disabled:hover{color:var(--ac,var(--biz))!important}
+.swp{position:absolute;inset:0;background:linear-gradient(90deg,transparent,var(--ac,var(--biz))33,transparent);animation:swpAni .7s ease-in-out infinite;z-index:1}
+@keyframes swpAni{0%{transform:translateX(-120%)}100%{transform:translateX(120%)}}
+.spin{width:18px;height:18px;border:2px solid var(--bd2);border-top:2px solid var(--ac,var(--biz));border-radius:50%;animation:spAni .8s linear infinite;flex-shrink:0}
+@keyframes spAni{to{transform:rotate(360deg)}}
+
+/* ═══════════════════════════════════════════════════
+   RESULTS
+═══════════════════════════════════════════════════ */
+.rph{padding:46px 20px;text-align:center}
+.rph-i{font-size:46px;opacity:.18;margin-bottom:12px}
+.rph-t{font-family:var(--mo);font-size:11px;color:var(--dim);letter-spacing:1.2px;line-height:1.9}
+.vbox{padding:18px 20px;border-radius:6px;border:1.5px solid;display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:18px;animation:fadeUp .3s ease}
+.vbox.vr{border-color:var(--hlth);background:var(--hlth2)}
+.vbox.vf{border-color:var(--sec);background:var(--sec2)}
+.vbox.vc{border-color:var(--sec);background:var(--sec2)}
+.vbox.vk{border-color:var(--hlth);background:var(--hlth2)}
+.vbox.vG{border-color:var(--sec);background:var(--sec2)}
+.vbox.vM{border-color:#f5a500;background:#f5a50018}
+.vbox.vN{border-color:var(--hlth);background:var(--hlth2)}
+.vbox.vP{border-color:var(--biz);background:var(--biz2)}
+.vl{font-family:var(--od);font-weight:900;letter-spacing:3px;line-height:1}
+.vs{font-family:var(--mo);font-size:10px;color:var(--dim);letter-spacing:1px;margin-top:5px}
+.vring{width:64px;height:64px;border-radius:50%;border:3px solid;flex-shrink:0;display:grid;place-items:center;font-family:var(--od);font-size:15px;font-weight:800}
+
+/* accuracy meter */
+.acc-meter{
+  margin:14px 0;padding:14px 16px;background:var(--s2);border:1px solid var(--bd2);
+  border-radius:6px;animation:fadeUp .4s ease;
+}
+.acc-title{font-family:var(--mo);font-size:9px;color:var(--dim);letter-spacing:2px;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.acc-title::after{content:'';flex:1;height:1px;background:var(--bd2)}
+.acc-gauge{position:relative;height:10px;background:var(--s3);border-radius:5px;overflow:hidden;margin-bottom:6px}
+.acc-fill{height:100%;border-radius:5px;animation:barAni .9s ease both;position:relative}
+.acc-fill::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent 60%,rgba(255,255,255,.2));animation:shimmer 2s infinite}
+@keyframes shimmer{0%{transform:translateX(-100%)}100%{transform:translateX(200%)}}
+.acc-row{display:flex;justify-content:space-between;align-items:center}
+.acc-val{font-family:var(--od);font-size:18px;font-weight:800;letter-spacing:1px}
+.acc-lbl{font-family:var(--mo);font-size:9px;color:var(--dim);letter-spacing:1px}
+
+/* bar */
+.br{margin-bottom:10px}
+.br-h{display:flex;justify-content:space-between;margin-bottom:4px}
+.br-l{font-family:var(--mo);font-size:10px;color:var(--dim);letter-spacing:.8px}
+.br-v{font-family:var(--od);font-size:12px;font-weight:700;letter-spacing:.5px}
+.br-t{height:5px;background:var(--s3);border-radius:3px;overflow:hidden}
+.br-f{height:100%;border-radius:3px;animation:barAni .85s ease both}
+@keyframes barAni{from{width:0}to{width:var(--w)}}
+
+/* mini grid */
+.mgrid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:16px}
+.mc{background:var(--s2);border:1px solid var(--bd2);border-radius:5px;padding:12px 13px;animation:fadeUp .4s ease both}
+.mc-l{font-family:var(--mo);font-size:9px;color:var(--dim);letter-spacing:1.5px;margin-bottom:4px}
+.mc-v{font-family:var(--od);font-size:20px;font-weight:700}
+.mc-b{height:3px;background:var(--bd2);border-radius:2px;margin-top:6px;overflow:hidden}
+.mc-bf{height:100%;border-radius:2px;animation:barAni .9s ease both}
+.slbl{font-family:var(--mo);font-size:9px;color:var(--dim);letter-spacing:2px;margin:16px 0 10px;display:flex;align-items:center;gap:8px}
+.slbl::after{content:'';flex:1;height:1px;background:var(--bd2)}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.tag{padding:3px 10px;border-radius:2px;font-family:var(--mo);font-size:10px;letter-spacing:.8px;animation:fadeUp .4s ease both}
+.tg-r{background:var(--sec2);border:1px solid var(--sec3);color:var(--sec)}
+.tg-g{background:var(--hlth2);border:1px solid var(--hlth3);color:var(--hlth)}
+.tg-b{background:var(--biz2);border:1px solid var(--biz3);color:var(--biz)}
+.ibox{padding:12px 14px;background:var(--s2);border-radius:5px;font-family:var(--eb);font-size:13px;color:var(--text);line-height:1.7;margin-top:10px}
+.ibox-lbl{font-family:var(--mo);font-size:9px;letter-spacing:1.5px;margin-bottom:5px}
+.ul-info{list-style:none}
+.ul-info li{padding:11px 0;border-bottom:1px solid var(--bd);display:flex;align-items:flex-start;gap:12px;font-size:13px;line-height:1.5}
+.ul-info li:last-child{border-bottom:none}
+.num{font-family:var(--mo);font-size:10px;padding:2px 7px;border-radius:2px;flex-shrink:0;margin-top:1px;letter-spacing:.5px}
+.ns{color:var(--text);font-weight:600;display:block;margin-bottom:2px}
+.nn{font-family:var(--mo);font-size:10px;color:var(--dim);letter-spacing:.5px}
+.dg{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.di{background:var(--s2);border:1px solid var(--bd2);border-radius:4px;padding:11px 13px}
+.dv{font-family:var(--od);font-size:21px;font-weight:700}
+.dl{font-family:var(--mo);font-size:9px;color:var(--dim);letter-spacing:1px;margin-top:2px}
+.steps{list-style:none;counter-reset:st}
+.steps li{counter-increment:st;padding:10px 0 10px 44px;border-bottom:1px solid var(--bd);font-size:14px;position:relative}
+.steps li:last-child{border-bottom:none}
+.steps li::before{content:counter(st,decimal-leading-zero);position:absolute;left:0;top:12px;font-family:var(--mo);font-size:10px;letter-spacing:.5px;background:var(--ac2,var(--biz2));border:1px solid var(--ac,var(--biz));color:var(--ac,var(--biz));padding:2px 6px;border-radius:2px}
+.err{padding:11px 16px;background:var(--sec2);border:1px solid var(--sec3);border-radius:5px;font-family:var(--mo);font-size:11px;color:var(--sec);margin-top:12px;display:none}
+.demo-warn{padding:9px 14px;background:var(--gold2);border:1px solid var(--gold);border-radius:4px;font-family:var(--mo);font-size:10px;color:var(--gold);letter-spacing:.8px;margin-bottom:14px}
+
+/* ═══════════════════════════════════════════════════
+   BUSINESS CONTROLS
+═══════════════════════════════════════════════════ */
+.sl-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 24px}
+.sel-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 24px}
+.sl{margin-bottom:14px}
+.sl-h{display:flex;justify-content:space-between;margin-bottom:4px}
+.sl-l{font-family:var(--mo);font-size:10px;color:var(--dim);letter-spacing:.8px}
+.sl-v{font-family:var(--od);font-size:12px;font-weight:700;color:var(--biz);letter-spacing:.5px}
+.sel{margin-bottom:14px}
+.sel label{font-family:var(--mo);font-size:10px;color:var(--dim);letter-spacing:.8px;display:block;margin-bottom:5px}
+.sel-w{position:relative}
+.sel-w select{width:100%;padding:8px 30px 8px 10px;background:var(--s2);border:1px solid var(--bd2);border-radius:4px;color:var(--text);font-family:var(--mo);font-size:11px;outline:none;cursor:pointer}
+.sel-w::after{content:'▾';position:absolute;right:10px;top:50%;transform:translateY(-50%);color:var(--dim);pointer-events:none;font-size:11px}
+.tog-row{display:flex;align-items:center;justify-content:space-between;padding:11px 13px;background:var(--s2);border:1px solid var(--bd2);border-radius:5px;cursor:pointer;user-select:none;margin-top:4px}
+.tog-l{font-family:var(--mo);font-size:11px;color:var(--dim);letter-spacing:.8px}
+.tog-sw{width:44px;height:22px;border-radius:11px;position:relative;transition:all .25s}
+.tog-kn{position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:50%;transition:all .25s}
+
+/* ═══════════════════════════════════════════════════
+   DATASET TAGS — replaces accuracy stats
+═══════════════════════════════════════════════════ */
+.dataset-info{
+  background:var(--s2);border:1px solid var(--bd2);border-radius:6px;
+  padding:14px 16px;margin-bottom:10px;
+}
+.dataset-info .ds-title{font-family:var(--mo);font-size:9px;color:var(--dim);letter-spacing:2px;margin-bottom:10px}
+.ds-tags{display:flex;flex-wrap:wrap;gap:6px}
+.ds-tag{
+  padding:4px 12px;border-radius:3px;font-family:var(--mo);font-size:10px;letter-spacing:.8px;
+  background:var(--s3);border:1px solid var(--bd2);color:var(--text);
+}
+.ds-tag.highlight{background:var(--biz2);border-color:var(--biz3);color:var(--biz)}
+
+/* ═══════════════════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════════════════ */
+.footer{margin-top:56px;padding:20px 0;border-top:1px solid var(--bd2);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.footer p{font-family:var(--mo);font-size:9px;color:var(--muted);letter-spacing:2px}
+.ftags{display:flex;gap:7px;flex-wrap:wrap}
+.ft{padding:3px 9px;border:1px solid var(--bd2);border-radius:2px;font-family:var(--mo);font-size:9px;color:var(--muted);letter-spacing:1px}
+
+/* ═══════════════════════════════════════════════════
+   TOOLTIP / INTERACTIVE HIGHLIGHTS
+═══════════════════════════════════════════════════ */
+.tooltip{position:relative;display:inline-block}
+.tooltip .tt-text{
+  display:none;position:absolute;bottom:130%;left:50%;transform:translateX(-50%);
+  background:var(--s1);border:1px solid var(--bd2);color:var(--text);
+  font-family:var(--mo);font-size:9px;letter-spacing:1px;padding:5px 10px;border-radius:4px;
+  white-space:nowrap;z-index:10;
+}
+.tooltip:hover .tt-text{display:block;animation:fadeUp .2s ease}
+</style>
+</head>
+<body>
+<div class="scanline"></div>
+
+<!-- ══════════════════════════════════════════════
+     LOGIN SCREEN
+══════════════════════════════════════════════ -->
+<div id="login-screen">
+  <div class="login-box">
+    <div class="login-corner tl"></div><div class="login-corner tr"></div>
+    <div class="login-corner bl"></div><div class="login-corner br"></div>
+    <div class="login-logo">
+      <div class="l1">TRIFUSION AI:INTEGRATED SYSTEM FOR</div>
+      <div class="l2">SECURITY · HEALTH · BUSINESS</div>
+      <div class="l3">TRINET RESEARCH FRAMEWORK · SECURE ACCESS</div>
+    </div>
+    <div class="lf-group">
+      <label class="lf-label" for="li-user">USERNAME</label>
+      <input class="lf-input" type="text" id="li-user" placeholder="Enter username" autocomplete="off"/>
+    </div>
+    <div class="lf-group">
+      <label class="lf-label" for="li-pass">PASSWORD</label>
+      <input class="lf-input" type="password" id="li-pass" placeholder="Enter password"/>
+    </div>
+    <div class="lf-err" id="li-err">⚠ Invalid credentials. Try admin / trinet2025</div>
+    <button class="login-btn" onclick="doLogin()"><span>ACCESS SYSTEM</span></button>
+    <div class="login-hint">Demo credentials: admin / trinet2025</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     THEME BAR (visible after login)
+══════════════════════════════════════════════ -->
+<div class="theme-bar" id="theme-bar" style="display:none">
+  <span class="theme-bar-label">THEME</span>
+  <div class="th-dot active" style="background:linear-gradient(135deg,#030910,#38a8ff)" title="Cyber" onclick="setTheme('cyber',this)"></div>
+  <div class="th-dot" style="background:linear-gradient(135deg,#0d0d0d,#e040fb)" title="Ghost" onclick="setTheme('ghost',this)"></div>
+  <div class="th-dot" style="background:linear-gradient(135deg,#fdf6e3,#e67e22)" title="Solar" onclick="setTheme('solar',this)"></div>
+  <div class="th-dot" style="background:linear-gradient(135deg,#f0f4f8,#3b82f6)" title="Arctic" onclick="setTheme('arctic',this)"></div>
+  <div class="th-dot" style="background:linear-gradient(135deg,#000a00,#00ff41)" title="Matrix" onclick="setTheme('matrix',this)"></div>
+  <button class="th-logout" onclick="doLogout()">⏻ LOGOUT</button>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     MAIN APP
+══════════════════════════════════════════════ -->
+<div id="app">
+<div class="wrap">
+
+<!-- HERO -->
+<div class="hero">
+  <div class="cp tl"></div><div class="cp tr"></div><div class="cp bl"></div><div class="cp br"></div>
+  <div class="hero-badges">
+    <div class="badge live"><span class="dot"></span>LIVE DEMO SYSTEM</div>
+    <div class="badge api-wait" id="api-badge">
+      <span class="dot" style="background:var(--gold)"></span>
+      <span id="api-txt">CONNECTING TO API…</span>
+    </div>
+  </div>
+  <div class="hero-line1">TRIFUSION AI:INTEGRATED SYSTEM FOR</div>
+  <div class="hero-line2">SECURITY · HEALTH · BUSINESS INSIGHTS</div>
+  <div class="hero-sub">TRINET FRAMEWORK &nbsp;·&nbsp; GAN+RESNET50 &nbsp;·&nbsp; FINE-TUNED RESNET50 &nbsp;·&nbsp; CHURNNET 1D-CNN</div>
+  <div class="stats-row">
+    <div class="tooltip"><div class="stat-val" style="color:var(--sec)">150K</div><div class="stat-lbl">TRAINING IMAGES</div><span class="tt-text">70K Real + 70K Fake faces</span></div>
+    <div class="tooltip"><div class="stat-val" style="color:var(--hlth)">7023</div><div class="stat-lbl">MRI SCANS</div><span class="tt-text">4-class brain tumor dataset</span></div>
+    <div class="tooltip"><div class="stat-val" style="color:var(--biz)">5630</div><div class="stat-lbl">CUSTOMERS</div><span class="tt-text">E-Commerce churn dataset</span></div>
+    <div><div class="stat-val" style="color:var(--gold)">3</div><div class="stat-lbl">AI MODULES</div></div>
+  </div>
+</div>
+
+<!-- TABS -->
+<div class="tabs">
+  <div class="tab ts" id="t-s" onclick="tab('s')"><div class="ti">🔐</div><div class="tl">SECURITY</div></div>
+  <div class="tab" id="t-h" onclick="tab('h')"><div class="ti">🧠</div><div class="tl">HEALTH</div></div>
+  <div class="tab" id="t-b" onclick="tab('b')"><div class="ti">📊</div><div class="tl">BUSINESS</div></div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     MODULE 1 — SECURITY
+══════════════════════════════════════════════ -->
+<div class="pnl on" id="p-s">
+<div class="g2">
+  <div>
+    <div class="card">
+      <div class="card-h">
+        <div class="card-title"><em style="color:var(--sec)">▸</em>IMAGE FORENSICS SCANNER</div>
+        <div class="card-tag">GAN + RESNET50 + ATTENTION</div>
+      </div>
+      <div class="card-b">
+        <div class="upz" id="upz-s" style="--ac:var(--sec)"
+          ondragover="drag(event,'upz-s')" ondragleave="undrag('upz-s')"
+          ondrop="drop(event,'upz-s','fi-s')"
+          onclick="document.getElementById('fi-s').click()">
+          <input type="file" id="fi-s" accept="image/*" onchange="img(event,'s')"/>
+          <div id="ph-s"><div class="upz-icon">🖼️</div>
+            <div class="upz-title">DROP FACE IMAGE HERE</div>
+            <div class="upz-sub">OR CLICK TO BROWSE &nbsp;·&nbsp; JPG · PNG · WEBP</div>
+          </div>
+          <img id="pi-s" alt="preview"/>
+          <div class="upz-cap" id="cap-s">📁 <span id="fn-s"></span></div>
+        </div>
+        <button class="btn" id="btn-s" onclick="runSec()" disabled style="--ac:var(--sec)">
+          <span id="bt-s">SELECT AN IMAGE FIRST</span>
+        </button>
+        <div class="err" id="er-s"></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-h">
+        <div class="card-title"><em style="color:var(--sec)">▸</em>FORENSIC ANALYSIS REPORT</div>
+        <div class="card-tag" id="rt-s">AWAITING SCAN</div>
+      </div>
+      <div class="card-b" id="res-s">
+        <div class="rph"><div class="rph-i">🔬</div>
+          <div class="rph-t">UPLOAD A FACE IMAGE AND INITIATE THE SCAN<br/>DETECTS REAL VS AI-GENERATED (STYLEGAN) FACES</div></div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <div class="card">
+      <div class="card-h"><div class="card-title"><em style="color:var(--sec)">▸</em>ARCHITECTURE</div></div>
+      <div class="card-b">
+        <ul class="ul-info">
+          <li><span class="num" style="background:var(--sec2);border:1px solid var(--sec3);color:var(--sec)">01</span>
+            <div><span class="ns">GAN Generator</span><span class="nn">Latent dim 128 → 256×256×3 synthetic augmentation pool</span></div></li>
+          <li><span class="num" style="background:var(--sec2);border:1px solid var(--sec3);color:var(--sec)">02</span>
+            <div><span class="ns">ResNet50 Backbone</span><span class="nn">ImageNet pretrained · 2-phase fine-tuning strategy</span></div></li>
+          <li><span class="num" style="background:var(--sec2);border:1px solid var(--sec3);color:var(--sec)">03</span>
+            <div><span class="ns">Channel-Wise Attention</span><span class="nn">Squeeze-excitation block · ratio 16 · feature recalibration</span></div></li>
+          <li><span class="num" style="background:var(--sec2);border:1px solid var(--sec3);color:var(--sec)">04</span>
+            <div><span class="ns">Classification Head</span><span class="nn">Dense(512→256) · Dropout 0.5 · Sigmoid binary output</span></div></li>
+        </ul>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-h"><div class="card-title"><em style="color:var(--sec)">▸</em>TRAINED DATASET</div></div>
+      <div class="card-b">
+        <div class="dataset-info">
+          <div class="ds-title">DATASET SOURCE</div>
+          <div class="ds-tags">
+            <span class="ds-tag highlight">140K Face Images</span>
+            <span class="ds-tag">70K Real (FFHQ · Flickr)</span>
+            <span class="ds-tag">70K Fake (StyleGAN · NVIDIA)</span>
+            <span class="ds-tag">256×256 px</span>
+            <span class="ds-tag">Kaggle · xhlulu</span>
+          </div>
+        </div>
+        <p style="font-family:var(--mo);font-size:10px;color:var(--dim);line-height:1.9">
+          kaggle.com/datasets/xhlulu/<br/>140k-real-and-fake-faces
+        </p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-h"><div class="card-title"><em style="color:var(--sec)">▸</em>HOW TO USE</div></div>
+      <div class="card-b">
+        <ol class="steps" style="--ac:var(--sec);--ac2:var(--sec2)">
+          <li>Upload or drag &amp; drop a face image (JPG/PNG/WEBP)</li>
+          <li>Click <strong style="color:var(--sec)">INITIATE SCAN</strong> to run the model</li>
+          <li>Review the REAL / FAKE verdict and model accuracy</li>
+          <li>Check the forensic feature breakdown panel</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     MODULE 2 — HEALTH
+══════════════════════════════════════════════ -->
+<div class="pnl" id="p-h">
+<div class="g2">
+  <div>
+    <div class="card">
+      <div class="card-h">
+        <div class="card-title"><em style="color:var(--hlth)">▸</em>MRI CLASSIFICATION SCANNER</div>
+        <div class="card-tag">FINE-TUNED RESNET50 · 4-CLASS</div>
+      </div>
+      <div class="card-b">
+        <div class="upz" id="upz-h" style="--ac:var(--hlth)"
+          ondragover="drag(event,'upz-h')" ondragleave="undrag('upz-h')"
+          ondrop="drop(event,'upz-h','fi-h')"
+          onclick="document.getElementById('fi-h').click()">
+          <input type="file" id="fi-h" accept="image/*" onchange="img(event,'h')"/>
+          <div id="ph-h"><div class="upz-icon">🧠</div>
+            <div class="upz-title">DROP MRI SCAN HERE</div>
+            <div class="upz-sub">OR CLICK TO BROWSE &nbsp;·&nbsp; JPG · PNG</div>
+          </div>
+          <img id="pi-h" alt="mri" style="filter:grayscale(15%) contrast(1.1)"/>
+          <div class="upz-cap" id="cap-h">📁 <span id="fn-h"></span></div>
+        </div>
+        <button class="btn" id="btn-h" onclick="runHlth()" disabled style="--ac:var(--hlth)">
+          <span id="bt-h">SELECT AN MRI IMAGE FIRST</span>
+        </button>
+        <div class="err" id="er-h"></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-h">
+        <div class="card-title"><em style="color:var(--hlth)">▸</em>CLASSIFICATION REPORT</div>
+        <div class="card-tag" id="rt-h">AWAITING SCAN</div>
+      </div>
+      <div class="card-b" id="res-h">
+        <div class="rph"><div class="rph-i">🩺</div>
+          <div class="rph-t">UPLOAD A BRAIN MRI SCAN AND CLASSIFY<br/>GLIOMA · MENINGIOMA · NO TUMOR · PITUITARY</div></div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <div class="card">
+      <div class="card-h"><div class="card-title"><em style="color:var(--hlth)">▸</em>ARCHITECTURE</div></div>
+      <div class="card-b">
+        <ul class="ul-info">
+          <li><span class="num" style="background:var(--hlth2);border:1px solid var(--hlth3);color:var(--hlth)">01</span>
+            <div><span class="ns">ResNet50 Backbone</span><span class="nn">Pretrained on ImageNet · top classification layer removed</span></div></li>
+          <li><span class="num" style="background:var(--hlth2);border:1px solid var(--hlth3);color:var(--hlth)">02</span>
+            <div><span class="ns">Global Avg Pooling</span><span class="nn">Spatial feature aggregation · dimensionality reduction</span></div></li>
+          <li><span class="num" style="background:var(--hlth2);border:1px solid var(--hlth3);color:var(--hlth)">03</span>
+            <div><span class="ns">Dense Layers</span><span class="nn">512 → 256 units · L2 reg (0.01) · Dropout (0.5)</span></div></li>
+          <li><span class="num" style="background:var(--hlth2);border:1px solid var(--hlth3);color:var(--hlth)">04</span>
+            <div><span class="ns">Softmax Output</span><span class="nn">4-class: Glioma · Meningioma · No Tumor · Pituitary</span></div></li>
+        </ul>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-h"><div class="card-title"><em style="color:var(--hlth)">▸</em>TRAINED DATASET</div></div>
+      <div class="card-b">
+        <div class="dataset-info">
+          <div class="ds-title">DATASET SOURCE</div>
+          <div class="ds-tags">
+            <span class="ds-tag highlight">7023 MRI Scans</span>
+            <span class="ds-tag">Glioma · 1621 images</span>
+            <span class="ds-tag">Meningioma · 1645 images</span>
+            <span class="ds-tag">No Tumor · 2000 images</span>
+            <span class="ds-tag">Pituitary · 1757 images</span>
+            <span class="ds-tag">64×64 px Input</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-h"><div class="card-title"><em style="color:var(--hlth)">▸</em>TUMOR CLASSES</div></div>
+      <div class="card-b">
+        <ul class="ul-info">
+          <li><span class="num" style="background:var(--sec2);border:1px solid var(--sec3);color:var(--sec)">HIGH</span>
+            <div><span class="ns">Glioma</span><span class="nn">Most common malignant brain tumor · urgent neurosurgical consult</span></div></li>
+          <li><span class="num" style="background:#f5a50018;border:1px solid #f5a50040;color:#f5a500">MED</span>
+            <div><span class="ns">Meningioma</span><span class="nn">Slow-growing tumor arising from brain membranes</span></div></li>
+          <li><span class="num" style="background:var(--hlth2);border:1px solid var(--hlth3);color:var(--hlth)">NONE</span>
+            <div><span class="ns">No Tumor</span><span class="nn">Healthy brain scan · routine annual MRI recommended</span></div></li>
+          <li><span class="num" style="background:var(--biz2);border:1px solid var(--biz3);color:var(--biz)">LOW</span>
+            <div><span class="ns">Pituitary</span><span class="nn">Hormone-secreting tumor · endocrinology consult advised</span></div></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     MODULE 3 — BUSINESS
+══════════════════════════════════════════════ -->
+<div class="pnl" id="p-b">
+<div class="g2">
+  <div>
+    <div class="card">
+      <div class="card-h">
+        <div class="card-title"><em style="color:var(--biz)">▸</em>CUSTOMER PROFILE INPUT</div>
+        <div class="card-tag">CHURNNET 1D-CNN</div>
+      </div>
+      <div class="card-b">
+        <div class="sl-grid">
+          <div class="sl"><div class="sl-h"><span class="sl-l">TENURE (MONTHS)</span><span class="sl-v" id="vt">12</span></div><input type="range" min="0" max="60" value="12" oninput="sv('t',this.value)"/></div>
+          <div class="sl"><div class="sl-h"><span class="sl-l">HOURS ON APP / DAY</span><span class="sl-v" id="vh">3</span></div><input type="range" min="0" max="10" value="3" step="0.5" oninput="sv('h',this.value)"/></div>
+          <div class="sl"><div class="sl-h"><span class="sl-l">SATISFACTION (1–5)</span><span class="sl-v" id="vs">3</span></div><input type="range" min="1" max="5" value="3" oninput="sv('s',this.value)"/></div>
+          <div class="sl"><div class="sl-h"><span class="sl-l">ORDER COUNT</span><span class="sl-v" id="vo">4</span></div><input type="range" min="1" max="25" value="4" oninput="sv('o',this.value)"/></div>
+          <div class="sl"><div class="sl-h"><span class="sl-l">CASHBACK AMOUNT (₹)</span><span class="sl-v" id="vc">180</span></div><input type="range" min="0" max="600" value="180" oninput="sv('c',this.value)"/></div>
+          <div class="sl"><div class="sl-h"><span class="sl-l">DAYS SINCE LAST ORDER</span><span class="sl-v" id="vd">8</span></div><input type="range" min="0" max="60" value="8" oninput="sv('d',this.value)"/></div>
+          <div class="sl"><div class="sl-h"><span class="sl-l">COUPONS USED</span><span class="sl-v" id="vcu">2</span></div><input type="range" min="0" max="20" value="2" oninput="sv('cu',this.value)"/></div>
+          <div class="sl"><div class="sl-h"><span class="sl-l">ADDRESSES REGISTERED</span><span class="sl-v" id="va">4</span></div><input type="range" min="1" max="12" value="4" oninput="sv('a',this.value)"/></div>
+        </div>
+        <div class="sel-grid">
+          <div class="sel"><label>PREFERRED DEVICE</label><div class="sel-w"><select id="sd"><option>Mobile</option><option>Computer</option><option>Phone</option></select></div></div>
+          <div class="sel"><label>PAYMENT METHOD</label><div class="sel-w"><select id="sp"><option>UPI</option><option>Debit Card</option><option>Credit Card</option><option>COD</option><option>E-Wallet</option></select></div></div>
+          <div class="sel"><label>ORDER CATEGORY</label><div class="sel-w"><select id="sc"><option>Fashion</option><option>Laptop &amp; Accessory</option><option>Mobile</option><option>Grocery</option><option>Others</option></select></div></div>
+          <div class="sel"><label>MARITAL STATUS</label><div class="sel-w"><select id="sm"><option>Single</option><option>Married</option><option>Divorced</option></select></div></div>
+        </div>
+        <div class="tog-row" onclick="tog()">
+          <span class="tog-l">RECENT COMPLAINT FILED</span>
+          <div class="tog-sw" id="tsw" style="background:var(--bd2);border:1px solid var(--muted)">
+            <div class="tog-kn" id="tkn" style="background:var(--dim)"></div>
+          </div>
+        </div>
+        <button class="btn" id="btn-b" onclick="runBiz()" style="--ac:var(--biz)">
+          <span id="bt-b">📊 &nbsp;PREDICT CHURN</span>
+        </button>
+        <div class="err" id="er-b"></div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <div class="card">
+      <div class="card-h">
+        <div class="card-title"><em style="color:var(--biz)">▸</em>PREDICTION REPORT</div>
+        <div class="card-tag" id="rt-b">AWAITING INPUT</div>
+      </div>
+      <div class="card-b" id="res-b">
+        <div class="rph"><div class="rph-i">💼</div>
+          <div class="rph-t">ADJUST SLIDERS TO MATCH<br/>THE CUSTOMER PROFILE THEN PREDICT</div></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-h"><div class="card-title"><em style="color:var(--biz)">▸</em>MODEL ARCHITECTURE</div></div>
+      <div class="card-b">
+        <ul class="ul-info">
+          <li><span class="num" style="background:var(--biz2);border:1px solid var(--biz3);color:var(--biz)">01</span>
+            <div><span class="ns">1D-CNN Layer</span><span class="nn">128 filters · kernel size 5 · stride 1 · temporal features</span></div></li>
+          <li><span class="num" style="background:var(--biz2);border:1px solid var(--biz3);color:var(--biz)">02</span>
+            <div><span class="ns">Residual Blocks ×2</span><span class="nn">Skip connections · gradient preservation · 64 filters</span></div></li>
+          <li><span class="num" style="background:var(--biz2);border:1px solid var(--biz3);color:var(--biz)">03</span>
+            <div><span class="ns">SE + Spatial Attention</span><span class="nn">Channel &amp; spatial recalibration · ratio 4</span></div></li>
+          <li><span class="num" style="background:var(--biz2);border:1px solid var(--biz3);color:var(--biz)">04</span>
+            <div><span class="ns">Dense + Sigmoid</span><span class="nn">Dropout 0.5 · binary churn/retain output</span></div></li>
+        </ul>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-h"><div class="card-title"><em style="color:var(--biz)">▸</em>TRAINED DATASET</div></div>
+      <div class="card-b">
+        <div class="dataset-info">
+          <div class="ds-title">DATASET SOURCE</div>
+          <div class="ds-tags">
+            <span class="ds-tag highlight">5630 Customers</span>
+            <span class="ds-tag">20 Features</span>
+            <span class="ds-tag">E-Commerce Churn</span>
+            <span class="ds-tag">SMOTEEN Balancing</span>
+            <span class="ds-tag">10-Fold Cross-Validation</span>
+            <span class="ds-tag">AUC-ROC 99.57%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <p>TRINET RESEARCH FRAMEWORK &nbsp;·&nbsp; IEEE ACCESS 2025 &nbsp;·&nbsp; AI-POWERED MULTI-DOMAIN INTELLIGENCE</p>
+  <div class="ftags">
+    <span class="ft">FLASK</span><span class="ft">TENSORFLOW 2.16</span>
+    <span class="ft">RESNET50</span><span class="ft">GAN AUGMENTATION</span><span class="ft">CHURNNET</span>
+  </div>
+</div>
+
+</div><!-- /wrap -->
+</div><!-- /app -->
+
+<!-- ══════════════════════════════════════════════
+     JAVASCRIPT
+══════════════════════════════════════════════ -->
+<script>
+/* ── CREDENTIALS ──────────────────────────────── */
+const USERS = { admin:'trinet2025', demo:'demo1234', researcher:'ai2025' };
+
+/* ── LOGIN ────────────────────────────────────── */
+function doLogin(){
+  const u=document.getElementById('li-user').value.trim();
+  const p=document.getElementById('li-pass').value;
+  const err=document.getElementById('li-err');
+  if(USERS[u]&&USERS[u]===p){
+    err.style.display='none';
+    document.getElementById('login-screen').classList.add('hidden');
+    document.getElementById('app').classList.add('visible');
+    document.getElementById('theme-bar').style.display='flex';
+    ping();
+  } else {
+    err.style.display='block';
+    document.getElementById('li-pass').value='';
+    document.getElementById('li-pass').focus();
+    document.getElementById('li-pass').style.borderColor='var(--sec)';
+    setTimeout(()=>document.getElementById('li-pass').style.borderColor='',1500);
+  }
+}
+document.addEventListener('keydown',e=>{
+  if(e.key==='Enter'&&!document.getElementById('login-screen').classList.contains('hidden'))doLogin();
+});
+
+function doLogout(){
+  document.getElementById('login-screen').classList.remove('hidden');
+  document.getElementById('app').classList.remove('visible');
+  document.getElementById('theme-bar').style.display='none';
+  document.getElementById('li-user').value='';
+  document.getElementById('li-pass').value='';
+}
+
+/* ── THEME ────────────────────────────────────── */
+function setTheme(name,el){
+  document.documentElement.setAttribute('data-theme',name);
+  document.querySelectorAll('.th-dot').forEach(d=>d.classList.remove('active'));
+  el.classList.add('active');
+}
+
+/* ── STATE ────────────────────────────────────── */
+const B={t:12,h:3,s:3,o:4,c:180,d:8,cu:2,a:4};
+let cpOn=false, fSec=null, fHlth=null;
+
+/* ── API PING ─────────────────────────────────── */
+async function ping(){
+  const el=document.getElementById('api-badge');
+  const tx=document.getElementById('api-txt');
+  try{
+    const r=await fetch('/api/status');
+    const d=await r.json();
+    const any=d.security||d.health||d.business;
+    el.className='badge '+(any?'api-on':'');
+    el.querySelector('.dot').style.background=any?'var(--hlth)':'var(--gold)';
+    tx.textContent=any?'MODELS ONLINE':'DEMO MODE ACTIVE';
+  }catch{
+    el.className='badge api-off';
+    el.querySelector('.dot').style.background='var(--sec)';
+    tx.textContent='API OFFLINE';
+  }
+}
+setInterval(ping,30000);
+
+/* ── TAB SWITCH ───────────────────────────────── */
+function tab(x){
+  ['s','h','b'].forEach(id=>{
+    document.getElementById('p-'+id).classList.remove('on');
+    document.getElementById('t-'+id).className='tab';
+  });
+  document.getElementById('p-'+x).classList.add('on');
+  document.getElementById('t-'+x).className='tab t'+x;
+}
+
+/* ── DRAG / DROP ──────────────────────────────── */
+function drag(e,id){e.preventDefault();document.getElementById(id).classList.add('drag')}
+function undrag(id){document.getElementById(id).classList.remove('drag')}
+function drop(e,zid,fid){
+  e.preventDefault();undrag(zid);
+  const f=e.dataTransfer.files[0];
+  if(!f||!f.type.startsWith('image/'))return;
+  const dt=new DataTransfer();dt.items.add(f);
+  const inp=document.getElementById(fid);inp.files=dt.files;
+  inp.dispatchEvent(new Event('change'));
+}
+
+/* ── IMAGE PREVIEW ────────────────────────────── */
+function img(e,m){
+  const f=e.target.files[0]; if(!f)return;
+  if(m==='s')fSec=f; else fHlth=f;
+  const r=new FileReader();
+  r.onload=ev=>{
+    document.getElementById('ph-'+m).style.display='none';
+    const pi=document.getElementById('pi-'+m);
+    pi.src=ev.target.result; pi.style.display='block';
+    document.getElementById('cap-'+m).style.display='block';
+    document.getElementById('fn-'+m).textContent=f.name+' · '+(f.size/1024).toFixed(1)+'KB';
+    document.getElementById('upz-'+m).classList.add('full');
+    const btn=document.getElementById('btn-'+m);
+    btn.disabled=false;
+    document.getElementById('bt-'+m).textContent='⚡  INITIATE SCAN';
+    clrRes(m); hideErr(m);
+  };
+  r.readAsDataURL(f);
+}
+
+/* ── SLIDER ───────────────────────────────────── */
+function sv(k,v){B[k]=parseFloat(v);document.getElementById('v'+k).textContent=v}
+
+/* ── COMPLAINT TOGGLE ─────────────────────────── */
+function tog(){
+  cpOn=!cpOn;
+  const sw=document.getElementById('tsw'),kn=document.getElementById('tkn');
+  sw.style.background=cpOn?'var(--sec2)':'var(--bd2)';
+  sw.style.borderColor=cpOn?'var(--sec)':'var(--muted)';
+  kn.style.background=cpOn?'var(--sec)':'var(--dim)';
+  kn.style.left=cpOn?'25px':'3px';
+}
+
+/* ── HELPERS ──────────────────────────────────── */
+function setLoading(m,on){
+  const b=document.getElementById('btn-'+m); b.disabled=on;
+  const ac=m==='s'?'sec':m==='h'?'hlth':'biz';
+  document.getElementById('bt-'+m).innerHTML=on
+    ?`<div class="swp" style="--ac:var(--${ac})"></div><div class="spin" style="--ac:var(--${ac})"></div> ANALYZING…`
+    :'⚡  SCAN AGAIN';
+}
+function clrRes(m){
+  document.getElementById('rt-'+m).textContent=m==='b'?'AWAITING INPUT':'AWAITING SCAN';
+  const ph={s:'<div class="rph"><div class="rph-i">🔬</div><div class="rph-t">CLICK SCAN TO ANALYZE</div></div>',
+    h:'<div class="rph"><div class="rph-i">🩺</div><div class="rph-t">CLICK SCAN TO CLASSIFY</div></div>',
+    b:'<div class="rph"><div class="rph-i">💼</div><div class="rph-t">CLICK PREDICT TO SEE RESULTS</div></div>'};
+  document.getElementById('res-'+m).innerHTML=ph[m];
+}
+function showErr(m,msg){const e=document.getElementById('er-'+m);e.style.display='block';e.textContent='⚠ '+msg}
+function hideErr(m){const e=document.getElementById('er-'+m);if(e)e.style.display='none'}
+
+function bar(l,p,c,dl=0){
+  return`<div class="br"><div class="br-h"><span class="br-l">${l}</span>
+    <span class="br-v" style="color:${c}">${(+p||0).toFixed(1)}%</span></div>
+    <div class="br-t"><div class="br-f" style="--w:${Math.min(100,+p||0)}%;background:${c};animation-delay:${dl}ms"></div></div></div>`;
+}
+function mc(l,v,c,dl=0){
+  return`<div class="mc" style="animation-delay:${dl}ms">
+    <div class="mc-l">${l}</div><div class="mc-v" style="color:${c}">${(+v||0).toFixed(1)}%</div>
+    <div class="mc-b"><div class="mc-bf" style="--w:${Math.min(100,+v||0)}%;background:${c};animation-delay:${dl}ms"></div></div>
+  </div>`;
+}
+
+/* accuracy meter widget */
+function accMeter(label, value, color){
+  return `<div class="acc-meter">
+    <div class="acc-title">MODEL ACCURACY</div>
+    <div class="acc-row" style="margin-bottom:8px">
+      <span class="acc-lbl">${label}</span>
+      <span class="acc-val" style="color:${color}">${(+value||0).toFixed(1)}%</span>
+    </div>
+    <div class="acc-gauge">
+      <div class="acc-fill" style="--w:${Math.min(100,+value||0)}%;width:${Math.min(100,+value||0)}%;background:${color}"></div>
+    </div>
+  </div>`;
+}
+
+/* ══════════════════════════════════════════════
+   SECURITY PREDICT
+══════════════════════════════════════════════ */
+async function runSec(){
+  if(!fSec)return;
+  setLoading('s',true); hideErr('s');
+  try{
+    const fd=new FormData(); fd.append('file',fSec);
+    const r=await fetch('/api/security',{method:'POST',body:fd});
+    if(!r.ok){
+      const err=await r.json();
+      showErr('s',err.error||'Server error: '+r.status);
+      return;
+    }
+    const d=await r.json();
+    renderSec(d);
+  }catch(e){showErr('s','Network error — is Flask running? ('+e.message+')');}finally{setLoading('s',false);document.getElementById('btn-s').disabled=false;}
+
+}
+
+function renderSec(d){
+  if(!d||!d.verdict){showErr('s','Invalid response format');return;}
+  const real=d.verdict==='REAL';
+  const cc=real?'var(--hlth)':'var(--sec)';
+  const vc=real?'vr':'vf';
+  const conf=+d.confidence||85;
+  const rawScore=+d.raw_score||0.5;
+  document.getElementById('rt-s').textContent='MODEL INFERENCE';
+
+  let h='';
+
+  h+=`<div class="vbox ${vc}">
+    <div>
+      <div class="vl" style="color:${cc};font-size:clamp(20px,3vw,36px)">${real?'✓ REAL':'⚠ FAKE'}</div>
+      <div class="vs">CONFIDENCE &nbsp;·&nbsp; ${conf.toFixed(1)}%</div>
+    </div>
+    <div class="vring" style="border-color:${cc};color:${cc}">${conf.toFixed(0)}%</div>
+  </div>`;
+
+  h += accMeter('FAKE FACE DETECTION MODEL', conf, 'var(--sec)');
+  h+=bar('REAL PROBABILITY',(1-rawScore)*100,'var(--hlth)',0);
+  h+=bar('FAKE PROBABILITY',rawScore*100,'var(--sec)',110);
+
+  document.getElementById('res-s').innerHTML=h;
+}
+
+/* ══════════════════════════════════════════════
+   HEALTH PREDICT
+══════════════════════════════════════════════ */
+async function runHlth(){
+  if(!fHlth)return;
+  setLoading('h',true); hideErr('h');
+  try{
+    const fd=new FormData(); fd.append('file',fHlth);
+    const r=await fetch('/api/mri',{method:'POST',body:fd});
+    if(!r.ok){
+      const err=await r.json();
+      showErr('h',err.error||'Server error: '+r.status);
+      return;
+    }
+    const d=await r.json();
+    renderHlth(d);
+  }catch(e){showErr('h','Network error — is Flask running? ('+e.message+')');}finally{setLoading('h',false);document.getElementById('btn-h').disabled=false;}
+
+}
+
+function renderHlth(d){
+  if(!d||!d.prediction){showErr('h','Invalid response format');return;}
+  const severityMap={'Glioma':'High','Meningioma':'Moderate','No Tumor':'None','Pituitary':'Low'};
+  const severity=severityMap[d.prediction]||'None';
+  const sC={'None':'var(--hlth)','Low':'var(--biz)','Moderate':'#f5a500','High':'var(--sec)'}[severity]||'var(--hlth)';
+  const vC={'Glioma':'vG','Meningioma':'vM','No Tumor':'vN','Pituitary':'vP'}[d.prediction]||'vN';
+  const si={'None':'✅','Low':'🟡','Moderate':'🟠','High':'🔴'}[severity]||'🧬';
+  const conf=+d.confidence||95;
+  const ap=d.all_predictions||{};
+  document.getElementById('rt-h').textContent='MODEL INFERENCE';
+
+  let h='';
+
+  h+=`<div class="vbox ${vC}">
+    <div>
+      <div class="vl" style="color:${sC};font-size:clamp(16px,2.4vw,26px)">${d.prediction.toUpperCase()}</div>
+      <div class="vs" style="display:flex;gap:10px;flex-wrap:wrap;margin-top:6px">
+        <span>CONF &nbsp;·&nbsp; ${conf.toFixed(1)}%</span>
+        <span style="background:${sC}22;border:1px solid ${sC}55;color:${sC};padding:1px 8px;border-radius:2px;font-size:9px;letter-spacing:1px">${severity} SEVERITY</span>
+      </div>
+    </div>
+    <div style="font-size:32px">${si}</div>
+  </div>`;
+
+  h += accMeter('BRAIN TUMOR CLASSIFICATION MODEL', conf, 'var(--hlth)');
+
+  const cls=['Glioma','Meningioma','No Tumor','Pituitary'];
+  const cc=['var(--sec)','#f5a500','var(--hlth)','var(--biz)'];
+  h+=`<div class="slbl">CLASS PROBABILITIES</div>`;
+  cls.forEach((c,i)=>h+=bar(c.toUpperCase(),ap[c]||0,cc[i],i*80));
+
+  h+=`<div style="margin-top:12px;padding:8px 12px;background:var(--s3);border-radius:4px;border:1px solid var(--bd2);font-family:var(--mo);font-size:9px;color:var(--muted);line-height:1.7">
+    ⚠ FOR RESEARCH DEMONSTRATION ONLY — NOT A MEDICAL DIAGNOSIS. Always consult a qualified radiologist or physician.</div>`;
+
+  document.getElementById('res-h').innerHTML=h;
+}
+
+/* ══════════════════════════════════════════════
+   BUSINESS PREDICT
+══════════════════════════════════════════════ */
+async function runBiz(){
+  const btn=document.getElementById('btn-b'); btn.disabled=true;
+  document.getElementById('bt-b').innerHTML=`<div class="swp" style="--ac:var(--biz)"></div><div class="spin" style="--ac:var(--biz)"></div> PREDICTING…`;
+  hideErr('b');
+  try{
+    const payload={
+      tenure:B.t,
+      hours_on_app:B.h,
+      satisfaction:B.s,
+      orders:B.o,
+      cashback:B.c,
+      days_since:B.d,
+      coupons:B.cu,
+      addresses:B.a,
+      complain:cpOn?1:0
+    };
+    const r=await fetch('/api/business',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+    if(!r.ok){
+      const err=await r.json();
+      showErr('b',err.error||'Server error: '+r.status);
+      return;
+    }
+    const d=await r.json();
+    renderBiz(d);
+  }catch(e){showErr('b','Network error — is Flask running? ('+e.message+')');}finally{btn.disabled=false;document.getElementById('bt-b').textContent='📊  PREDICT AGAIN';}
+
+}
+
+function renderBiz(d){
+  if(!d||!d.verdict){showErr('b','Invalid response format');return;}
+  const churn=d.verdict==='CHURN';
+  const rc=churn?'var(--sec)':'var(--hlth)';
+  const rl={'Low':'var(--hlth)','Medium':'#ccff00','High':'#f5a500','Critical':'var(--sec)'}[d.risk_level]||'var(--biz)';
+  const vc=churn?'vc':'vk';
+  const churnProb=+d.churn_prob||50;
+  const retainProb=+d.retain_prob||(100-churnProb);
+  const conf=+d.confidence||92.3;
+  document.getElementById('rt-b').textContent='MODEL INFERENCE';
+
+  let h='';
+
+  h+=`<div class="vbox ${vc}">
+    <div>
+      <div class="vl" style="color:${rc};font-size:clamp(15px,2.2vw,24px)">${churn?'⚠ WILL CHURN':'✓ WILL RETAIN'}</div>
+      <div class="vs" style="display:flex;gap:10px;flex-wrap:wrap;margin-top:6px">
+        <span>RISK &nbsp;<span style="color:${rl}">${d.risk_level||'Medium'}</span></span>
+      </div>
+    </div>
+    <div style="text-align:center">
+      <div style="font-family:var(--od);font-size:28px;font-weight:900;color:${rc};line-height:1">${churnProb.toFixed(0)}%</div>
+      <div style="font-family:var(--mo);font-size:8px;color:var(--dim);letter-spacing:1px;margin-top:2px">CHURN PROBABILITY</div>
+    </div>
+  </div>`;
+
+  h += accMeter('CHURNNET PREDICTION MODEL', conf, 'var(--biz)');
+  h+=bar('CHURN PROBABILITY', churnProb, 'var(--sec)',  0);
+  h+=bar('RETAIN PROBABILITY', retainProb, 'var(--hlth)', 100);
+
+  document.getElementById('res-b').innerHTML=h;
+}
+</script>
+</body>
+</html>
